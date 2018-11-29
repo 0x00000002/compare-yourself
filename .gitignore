@@ -67,7 +67,7 @@ typings/
 
 #other
 .lck
-.lock
+*.lock
 
 # OS generated files #
 ######################
