@@ -14,6 +14,9 @@
     "precommit": "CI=true npm run test && lint-staged"
   },
   "dependencies": {
+    "amazon-cognito-identity-js": "^3.0.6",
+    "aws-amplify": "latest",
+    "aws-sdk": "latest",
     "prop-types": "latest",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -33,7 +36,6 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-
   "standard": {
     "globals": [
       "import",
