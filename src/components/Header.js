@@ -2,29 +2,32 @@ import React from 'react'
 import SignUp from './Auth/SignUp'
 import SignIn from './Auth/SignIn'
 import SignOut from './Auth/SignOut'
-import { UserContext } from './Auth/UserContext'
+import settings from '../settings'
 
-const hasUser = () => <div className={'signout'}><SignOut /></div>
-const noUser = () => (
+const hasUser = (user) => (
   <div>
-    <SignUp />
-    <SignIn />
+    <span className={'userName'}>{user}</span> <SignOut />
   </div>
 )
 
-const Header = (props) => (
-  <UserContext.Consumer>
-    { auth => (
-      <div>
-        <header>
-          {auth.user ? hasUser() : noUser()}
-        </header>
-        <main>
-          {props.children}
-        </main>
-      </div>
-    )}
-  </UserContext.Consumer>
+const noUser = () => (
+  <div>
+    <SignUp /><SignIn />
+  </div>
 )
+
+const Header = (props) => {
+  return (
+    <div>
+      <header>
+        <div>{settings.siteName}</div>
+        {props.user ? hasUser(props.user) : noUser()}
+      </header>
+      <main>
+        {props.children}
+      </main>
+    </div>
+  )
+}
 
 export default Header

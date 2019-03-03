@@ -4,9 +4,7 @@ import { UserContext } from './UserContext'
 
 const Auth = (props) => (
   <UserContext.Consumer>
-    { auth => (
-      auth.user ? props.children : GuestPage()
-    )}
+    {() => props.user ? props.children : GuestPage()}
   </UserContext.Consumer>
 )
 

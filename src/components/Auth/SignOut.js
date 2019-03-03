@@ -1,13 +1,15 @@
 import React from 'react'
 import { UserContext } from './UserContext'
 
-const SignOut = (props) => (
+const SignOut = () => (
   <UserContext.Consumer>
-    { auth => (
-      <button onClick={event => auth.signout()}>
-        Sign out
-      </button>
-    )}
+    { dispatch => {
+      return (
+        <button onClick={event => dispatch({ type: 'signOut' })}>
+          Sign out
+        </button>
+      )
+    }}
   </UserContext.Consumer>
 )
 

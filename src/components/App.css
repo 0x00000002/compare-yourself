@@ -12,11 +12,21 @@ header {
   padding: 20px;
   /*min-height: 100vh;*/
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
   /*justify-content: center;*/
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+header > div:first-child {
+  align-self: flex-start;
+  width: 50%;
+}
+
+header > div:nth-child(2) {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
 }
 
 header > div > button {
@@ -25,6 +35,10 @@ header > div > button {
 
 .App-link {
   color: #61dafb;
+}
+
+main {
+  padding: 0 20px;
 }
 
 @keyframes App-logo-spin {
@@ -51,4 +65,13 @@ button:hover {
   background-color: #fff;
   color: #000;
   transition-duration: 0.3s;
+}
+
+.userName {
+  font-size: 1.2rem;
+  align-self: baseline;
+  padding-top: 4px;
+  padding-right: 10px;
+  font-family: Verdana;
+  font-weight: 800;
 }

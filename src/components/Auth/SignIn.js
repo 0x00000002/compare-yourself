@@ -3,11 +3,13 @@ import { UserContext } from './UserContext'
 
 const SignIn = (props) => (
   <UserContext.Consumer>
-    { auth => (
-      <button onClick={event => auth.signin()}>
-        Sign in
-      </button>
-    )}
+    { dispatch => {
+      return (
+        <button onClick={event => dispatch({ type: 'signIn' })}>
+          Sign in
+        </button>
+      )
+    }}
   </UserContext.Consumer>
 )
 

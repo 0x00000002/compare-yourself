@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useReducer } from 'react'
 import './App.css'
 import Auth from './Auth/'
 import Main from './Main'
@@ -6,54 +6,39 @@ import Header from './Header'
 import { aws } from './../settings'
 import Amplify from 'aws-amplify'
 import { UserContext } from './Auth/UserContext'
+import produce from 'immer'
 
 Amplify.configure(aws)
 
-class App extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      auth: {
-        user: null,
-        signin: null,
-        signout: null
-      }
+const reducer = (state, action) => {
+  return produce(state, draft => {
+    switch (action.type) {
+      case 'signIn':
+        return { user: authenticate() }
+
+      case 'signOut':
+      default:
+        return { user: false }
     }
-  }
+  })
+}
 
-  componentDidMount () {
-    this.setState({
-      auth: {
-        user: 'fakeUser',
-        signout: () => this.setState({
-          auth: {
-            user: null,
-            signin: this.state.auth.signin,
-            signout: this.state.auth.signout
-          }
-        }),
-        signin: () => this.setState({
-          auth: {
-            user: 'fakeUser',
-            signin: this.state.auth.signin,
-            signout: this.state.auth.signout
-          }
-        })
+const App = () => {
+  const [auth, dispatch] = useReducer(reducer, { user: false })
+  return (
+    <UserContext.Provider value={dispatch}>
+      <Auth user={auth.user}>
+        <Header user={auth.user} />
+        <Main user={auth.user} />
+      </Auth>
+    </UserContext.Provider>
+  )
+}
 
-      }
-    })
-  }
-
-  render () {
-    return (
-      <UserContext.Provider value={this.state.auth}>
-        <Auth>
-          <Header />
-          <Main />
-        </Auth>
-      </UserContext.Provider>
-    )
-  }
+const authenticate = () => {
+  const devMode = process.env.NODE_ENV === 'development'
+  const devUser = devMode && 'User'
+  return devUser || 'authUser'
 }
 
 export default App
